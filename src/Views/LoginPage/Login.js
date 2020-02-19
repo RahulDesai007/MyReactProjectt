@@ -67,7 +67,7 @@ handleLogin = () => {
         console.log("userId"+userId);
         alert(message)
         if (message === "Login Sucessfull"){
-          this.props.history.push('/Home')
+          this.props.history.push('/Home', {token : token})
         }
         // if (message === 'User Not Found !' || message === ' Email or Password wrong!' || message === 'Register Please!') {
         //          } else  {

@@ -42,44 +42,24 @@ password: evt.target.value,
 handleRegister = () => {
   this.props.history.push('/Signup')
 }
-handleLogin = () => {
-  console.log("Calling Ajax function.....")
-  console.log(this.state.username)
-  console.log(this.state.password)
-  const post = {
-    email: this.state.username,
-    password:  this.state.password
-  };
-  axios.post('http://localhost:8000/auth/login', post, {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'content-type': 'application/json',
-  },
-})
-      .then((responseJson) => {
-        console.log("This is my response Json", responseJson.data)
-        var token = responseJson.data.token;
-       // var message = responseJson.message;
-        var userId = responseJson.data.userId;
-        var message = responseJson.data.message;
-        console.log("token"+ token);
-        console.log("userId"+userId);
-        alert(message)
-        // if (message === 'User Not Found !' || message === ' Email or Password wrong!' || message === 'Register Please!') {
-        //          } else  {
-        //         (message === 'undefined')
-        //          console.log("Homepage");
-        //          console.log('token'+token);
-        //        //  this.props.navigation.navigate('HomePage',{token: token,user:user});
-        //     }
-       
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+onPost = () => {
+  this.props.history.push('/Post')
 }
 
+onDelete = () => {
+  this.props.history.push('/Delete')
+}
+
+onGet = () => {
+  this.props.history.push('/Get')
+}
+
+onlogout = () => {
+  this.props.history.push('/login')
+}
+onPostHome = () => {
+ alert("You are already in Home Page")
+}
 
 render() {
     
@@ -87,7 +67,12 @@ render() {
 // but you don't need to target those (any css-selector will work)
 return (
   <div >
-  <HomeHeader/>
+  <HomeHeader 
+  click={() => this.onPost()} 
+  clickhome={() => this.onPostHome()}
+  clickget={() => this.onGet()}
+  clickdelete={() => this.onDelete()}
+  logout={() => this.onlogout()} />
 <h1 className="Home">This is Home Page</h1>
 <Footer/>
 </div>

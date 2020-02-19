@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,26 +18,28 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+  // appBar: {
+  //   transition: theme.transitions.create(['margin', 'width'], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  // },
+  // appBarShift: {
+  //   width: `calc(100% - ${drawerWidth}px)`,
+  //   marginLeft: drawerWidth,
+  //   transition: theme.transitions.create(['margin', 'width'], {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  // },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -76,12 +78,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+
+export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const onPost = () => {
-    this.props.history.push('Post')
+    this.props.history.push('/Post')
   }
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -91,6 +94,7 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
   const style = { cursor: 'pointer'}
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -129,13 +133,17 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-         <h3 align="center" onClick={onPost} style={ style }>Post</h3>
+         <h3 align="center" onClick={props.click} style={ style }>Post</h3>
          <Divider />
-         <h3 align="center">Get</h3>
+         <h3 align="center" onClick={props.clickget} style={ style }>Get</h3>
          <Divider />
-         <h3 align="center">Get By Name</h3>
+         <h3 align="center" onClick={props.clickgetbyname} style={ style }>Get By Name</h3>
          <Divider />
-         <h3 align="center">Delete</h3>
+         <h3 align="center" onClick={props.clickdelete} style={ style }>Delete</h3>
+         <Divider />
+         <h3 align="center" onClick={props.clickhome} style={ style }>Home</h3>
+         <Divider />
+         <h3 align="center" onClick={props.logout} style={ style }>Logout</h3>
         </List>
         <Divider />
       </Drawer>
@@ -149,4 +157,4 @@ export default function PersistentDrawerLeft() {
       </main>
     </div>
   );
-}
+      }

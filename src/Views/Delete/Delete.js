@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Post.css';
+import './Delete.css';
 import HomeHeader from '../Header/HomeHeader'
 import Footer from '../Footer/Footer'
 import axios from 'axios'
@@ -8,15 +8,9 @@ class HomePage extends Component {
         super();
         this.state = {
             name: '',
-            age: '',
-            place: '',
-            gender: '',
-            error: '',
+
         };
-        this.handleAgeChange = this.handleAgeChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
-        this.handlePlaceChange = this.handlePlaceChange.bind(this);
-        this.handleGenderChange = this.handleGenderChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.dismissError = this.dismissError.bind(this);
     }
@@ -38,34 +32,14 @@ class HomePage extends Component {
             name: evt.target.value,
         });
     };
-    handleAgeChange(evt) {
-        this.setState({
-            age: evt.target.value,
-        });
-    };
 
-        handlePlaceChange(evt) {
-            this.setState({
-                place: evt.target.value,
-            });
-        }
-
-        handleGenderChange(evt) {
-            this.setState({
-                gender: evt.target.value,
-            });
-    }
-
-    onSubmitPost = () => {
+    onSubmitDelete = () => {
         console.log("Calling Ajax function.....")
         console.log(this.state.name)
         const post = {
             name: this.state.name,
-            age: this.state.age,
-            place: this.state.place,
-            gender: this.state.gender,
         };
-        axios.post('http://localhost:8000/route/posts', post, {
+        axios.post('http://localhost:8000/route/delete', post, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -79,7 +53,7 @@ class HomePage extends Component {
                 // var userId = responseJson.data.userId;
                 var message = responseJson.data.message;
                 alert(message)
-                if (message === "Post created successfully!") {
+                if (message === "Deleted Post Sucessfully..") {
                     this.props.history.push('/Home')
                 }
                 // if (message === 'User Not Found !' || message === ' Email or Password wrong!' || message === 'Register Please!') {
@@ -95,6 +69,10 @@ class HomePage extends Component {
                 console.error(error);
             });
     }
+
+    onDelete = () => {
+        this.props.history.push('/Delete')
+      }
     handleRegister = () => {
         this.props.history.push('/Signup')
     }
@@ -116,8 +94,8 @@ class HomePage extends Component {
             <div >
                 <HomeHeader clickhome={() => this.onPostHome()}
                     clickget={() => this.onGet()} />
-                <h4 className="Post" >
-                    <h2>Post Data Form</h2>
+                <h4 className="Delete" >
+                    <h2>Delete Data Form</h2>
                     <label>Name :  </label>
                     <input
                         type="text"
@@ -125,32 +103,11 @@ class HomePage extends Component {
                         value={this.state.name}
                         onChange={this.handleNameChange} />
                     <br /><br />
-                    <label>Age :  </label>
-                    <input
-                        type="text"
-                        data-test="age"
-                        value={this.state.age}
-                        onChange={this.handleAgeChange} />
-                    <br /><br />
-                    <label>Place :  </label>
-                    <input
-                        type="text"
-                        data-test="place"
-                        value={this.state.place}
-                        onChange={this.handlePlaceChange} />
-                    <br /><br />
-                    <label>Gender :  </label>
-                    <input
-                        type="text"
-                        data-test="gender"
-                        value={this.state.gender}
-                        onChange={this.handleGenderChange} />
-                    <br /><br />
                     <input
                         type="submit"
                         value="Submit"
                         data-test="submit"
-                        onClick={this.onSubmitPost} />
+                        onClick={this.onSubmitDelete} />
                 </h4>
                 <Footer />
             </div>
